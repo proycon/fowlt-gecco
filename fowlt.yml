@@ -10,6 +10,7 @@ modules:
       models:
         - models/FowltErrors
     - id: lm
+      enabled: false
       module: gecco.modules.lm.TIMBLLMModule
       threshold: 0.9
       sources:
@@ -20,6 +21,7 @@ modules:
       hapaxmodel: models/FowltCorpus.tok.1Mlines.hapax.colibri.patternmodel
       hapaxthreshold: 3
     - id: lexicon
+      enabled: false
       module: gecco.modules.lexicon.LexiconModule
       reversedformat: true
       freqthreshold: 10000
@@ -33,6 +35,7 @@ modules:
       models:
         - models/FowltCorpus.lexicon
     - id: aspell
+      enabled: false
       module: gecco.modules.lexicon.AspellModule
       language: en
       minlength: 5
