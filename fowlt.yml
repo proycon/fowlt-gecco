@@ -1,0 +1,280 @@
+id: fowlt
+root: /vol/tensusers/proycon/fowlt-gecco 
+language: en
+threads: 12
+debug: 5
+modules:
+    - id: errorlist
+      delimiter: tab
+      module: gecco.modules.errorlist.WordErrorListModule
+      models:
+        - models/FowltErrors
+    - id: lm
+      module: gecco.modules.lm.TIMBLLMModule
+      threshold: 0.9
+      sources:
+        - sources/FowltCorpus.tok.1Mlines.txt
+      models:
+        - models/FowltCorpus.1Mlines.lm.ibase
+      hapaxsource: sources/FowltCorpus.tok.1Mlines.txt
+      hapaxmodel: models/FowltCorpus.tok.1Mlines.hapax.colibri.patternmodel
+      hapaxthreshold: 3
+    - id: lexicon
+      module: gecco.modules.lexicon.LexiconModule
+      reversedformat: true
+      freqthreshold: 10000
+      minlength: 5
+      maxlength: 25
+      maxnrclosest: 5
+      maxdistance: 2
+      maxdistance_short: 1
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.lexicon
+    - id: aspell
+      module: gecco.modules.lexicon.AspellModule
+      language: en
+      minlength: 5
+      maxlength: 25
+      maxnrclosest: 5
+      maxdistance: 1
+      maxdistance_short: 1
+    - id: hunspell
+      module: gecco.modules.lexicon.HunspellModule
+      language: en_GB
+      minlength: 5
+      maxlength: 25
+      maxnrclosest: 5
+      maxdistance: 1
+      maxdistance_short: 1
+    - id: runon
+      module: gecco.modules.spacing.RunOnModule
+      freqthreshold: 25
+      partthreshold: 3000
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.spacing.colibri.patternmodel
+    - id: splits
+      module: gecco.modules.spacing.SplitModule
+      freqthreshold: 25
+      freqratio: 1
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.spacing.colibri.patternmodel
+    - id: confusible_its_its
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: ["it's","its"]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_its_its.ibase
+    - id: confusible_youre_your
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: ["you're","your"]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_youre_your.ibase
+    - id: confusible_than_then
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [than,then]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_than_then.ibase
+    - id: confusible_lose_loose
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [lose,loose]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_lose_loose.ibase
+    - id: confusible_effect_affect
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [effect,affect]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_effect_affect.ibase
+    - id: confusible_lie_lay
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [lie,lay]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_lie_lay.ibase
+    - id: confusible_whether_weather
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [whether,weather]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_whether_weather.ibase
+    - id: confusible_who_which_that
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [who,which,that]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_who_which_that.ibase
+    - id: confusible_theyretheirthere
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: ["they're",their,there]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_theyretheirthere.ibase
+    - id: confusible_dont_doesnt
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: ["don't","doesn't"]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_dont_doesnt.ibase
+    - id: confusible_totootwo
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [to,two,too]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_totootwo.ibase
+    - id: confusible_advice_advise
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [advice,advise]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_advice_advise.ibase
+    - id: confusible_any_some
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [any,some]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_any_some.ibase
+    - id: confusible_less_fewer
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [less,fewer]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_less_fewer.ibase
+    - id: confusible_practice_practise
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [practise,practise]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_practice_practise.ibase
+    - id: confusible_chose_choose
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [chose,choose]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_chose_choose.ibase
+    - id: confusible_quite_quiet
+      module: gecco.modules.confusibles.TIMBLWordConfusibleModule
+      confusibles: [quite,quiet]
+      leftcontext: 3
+      rightcontext: 3
+      threshold: 0.75
+      minocc: 5
+      algorithm: IGTree
+      sources:
+        - sources/FowltCorpus.tok.txt
+      models:
+        - models/FowltCorpus.confusible_quite_quiet.ibase
+    #- id: puncrecase
+    #  module: gecco.modules.puncrecase.TIMBLPuncRecaseModule
+    #  deletionthreshold: 999
+    #  insertionthreshold: 0.9
+    #  capitalizationthreshold: 0.9
+    #  debug: 5
+    #  sources:
+    #    - sources/FowltCorpus.tok.1Mlines.txt
+    #  models:
+    #    - models/FowltCorpus.1Mlines.puncrecase.ibase
